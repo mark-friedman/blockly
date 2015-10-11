@@ -170,6 +170,7 @@ class Gen_compressed(threading.Thread):
     target_filename = "blockly_compressed.js"
     # Define the parameters for the POST request.
     params = [
+        ("warning_level", "VERBOSE"),
         ("compilation_level", "SIMPLE_OPTIMIZATIONS"),
         ("use_closure_library", "true"),
         ("output_format", "json"),
@@ -196,6 +197,7 @@ class Gen_compressed(threading.Thread):
     target_filename = "blocks_compressed.js"
     # Define the parameters for the POST request.
     params = [
+        # ("warning_level", "VERBOSE"),
         ("compilation_level", "SIMPLE_OPTIMIZATIONS"),
         ("output_format", "json"),
         ("output_info", "compiled_code"),
@@ -221,6 +223,7 @@ class Gen_compressed(threading.Thread):
     target_filename = language + "_compressed.js"
     # Define the parameters for the POST request.
     params = [
+        # ("warning_level", "VERBOSE"),
         ("compilation_level", "SIMPLE_OPTIMIZATIONS"),
         ("output_format", "json"),
         ("output_info", "compiled_code"),
@@ -261,7 +264,11 @@ class Gen_compressed(threading.Thread):
       if not name.startswith("Input_"):
         return "???"
       n = int(name[6:]) - 1
-      return filenames[n]
+      filename = filenames[n]
+      if filename == "[goog.provide]":
+        return filenames[n + 1]
+      else:
+        return filename
 
     if json_data.has_key("serverErrors"):
       errors = json_data["serverErrors"]
