@@ -263,7 +263,7 @@ Blockly.Realtime.onObjectChange_ = function(evt) {
         } else if (event.property == 'relativeX' ||
             event.property == 'relativeY') {
           Blockly.Realtime.doWithinSync_(function() {
-            if (!block.svgGroup) {
+            if (!block.svgGroup_) {
               // If this is a move of a newly disconnected (i.e. newly top
               // level) block it will not have any svg (because it has been
               // disposed of by its parent), so we need to handle that here.
